@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
@@ -15,8 +17,10 @@ class PostController extends Controller
     {
     }
 
-    public function show(Post $post)
+    public function show($id)
     {
+        $post= Post::findOrFail($id);
+
         return response()->json([
             'post' => $post
         ]);
@@ -32,7 +36,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Post $post)
+    public function store(PostCreateRequest $request)
     {
         $post = new Post;
         $post->name = $request->name;
@@ -59,7 +63,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function list(Post $post)
+    public function list()
     {
         $posts = Post::all();
         return response()->json([
@@ -79,8 +83,9 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostUpdateRequest $request, $id)
     {
+        $post= Post::findOrFail($id);
         $post->name = $request->name;
         $post->address = $request->address;
         $post->contact = $request->contact;

@@ -28,12 +28,12 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $e)
-    {
-        if ($request->is('api/*')) {
-            return response()->json([
-                'messgae' => 'Record not found'
-            ]);
-        }
-    }
+    // public function render($request, Throwable $e)
+    // {
+    //     if ($request->is('api/*')) {
+    //         return response()->json([
+    //             'messgae' => 'Record not found'
+    //         ]);
+    //     }
+    // }
 }
